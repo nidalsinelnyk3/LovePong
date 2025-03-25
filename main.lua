@@ -19,8 +19,10 @@ function love.load()
 
   G.setDefaultFilter("nearest", "nearest")
 
-  player1 = Player:new(1)
-  player2 = Player:new(2)
+  gameState = "start"
+
+  player1 = Player:new()
+  player2 = Player:new()
 
   paddle1 = Paddle:new({0, 0}, player1)
   paddle2 = Paddle:new({windowSettings.virtual.width - Paddle.width, windowSettings.virtual.height - Paddle.height}, player2)
@@ -36,15 +38,26 @@ function love.draw()
 
   G.setFont(defaultFont)
 
-  G.printf(
-    "Hello Pong",
-    0, windowSettings.virtual.height/2 - defaultFont:getHeight()/2,
-    windowSettings.virtual.width,
-    "center"
-  )
+  if gameState == "start" then
+    G.printf(
+      "Press Enter/Return to start",
+      0, 30,
+      windowSettings.virtual.width,
+      "center"
+    )
+  end
+
+  player1:draw()
+  player2:draw()
 
   paddle1:draw()
   paddle2:draw()
 
   push:finish()
+end
+
+function love.keypressed(key, _scanCode, _isRepeat)
+  if key == "enter" or key == "return" then
+    gameState = "playing"
+  end
 end
