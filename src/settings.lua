@@ -11,7 +11,7 @@ local settings = {
   }
 }
 
-settings.window.scalingFactor = 0.7
+settings.window.scalingFactor = 0.8
 
 settings.window.virtual = {
   width = settings.window.real.width * settings.window.scalingFactor,
