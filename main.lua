@@ -10,17 +10,13 @@ local collisions = require("src/collisions")
 local defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
 local push = require("lib/push")
 local settings = require("src/settings")
-local windowSettings = settings.window
+local virtualWindow = settings.window.virtual
 
 function love.load()
-  push:setupScreen(
-    windowSettings.virtual.width, windowSettings.virtual.height,
-    windowSettings.real.width, windowSettings.real.height,
-    windowSettings.flags
-  )
+  local push = push
 
-  love.window.setTitle("Pong")
-
+  -- Create scaled down virtual window and change default aliasing to make the game feel low-res
+  push:setupScreen(virtualWindow.width, virtualWindow.height, G.getWidth(), G.getHeight())
   G.setDefaultFilter("nearest", "nearest")
 
   gameState = "start"
@@ -28,10 +24,10 @@ function love.load()
   player1 = Player:new()
   player2 = Player:new()
 
-  paddle1 = player1:createPaddle({0, windowSettings.virtual.height/2 - Paddle.height/2})
+  paddle1 = player1:createPaddle({0, virtualWindow.height/2 - Paddle.height/2})
   paddle2 = player2:createPaddle(
-    {windowSettings.virtual.width - Paddle.width,
-     windowSettings.virtual.height/2 - Paddle.height/2}
+    {virtualWindow.width - Paddle.width,
+     virtualWindow.height/2 - Paddle.height/2}
   )
 
   ball = Ball:new()
@@ -48,6 +44,8 @@ function love.update(dt)
 end
 
 function love.draw()
+  local push = push
+
   G.clear(0.1, 0.1, 0.1, 1)
   G.setColor(1, 1, 1, 1)
 
@@ -56,12 +54,7 @@ function love.draw()
   G.setFont(defaultFont)
 
   if gameState == "start" then
-    G.printf(
-      "Press Enter/Return to start",
-      0, 30,
-      windowSettings.virtual.width,
-      "center"
-    )
+    G.printf("Press Enter/Return to start", 0, 30, virtualWindow.width, "center")
   end
 
   player1:draw()
