@@ -2,24 +2,24 @@ require("lib/class")
 
 local G = love.graphics
 
-local WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
-local GAME_SCALE = 0.7
-local GAME_WIDTH, GAME_HEIGHT = WINDOW_WIDTH * GAME_SCALE, WINDOW_HEIGHT * GAME_SCALE
+WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
+GAME_SCALE = 0.7
+GAME_WIDTH, GAME_HEIGHT = WINDOW_WIDTH * GAME_SCALE, WINDOW_HEIGHT * GAME_SCALE
 
 local Paddle = require("src/Paddle")
 local Player = require("src/Player")
 
 local defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
 local push = require("lib/push")
+local settings = require("src/settings")
 
 function love.load()
+  local windowSettings = settings.window
+
   push:setupScreen(
-    GAME_WIDTH, GAME_HEIGHT,
-    WINDOW_WIDTH, WINDOW_HEIGHT,
-    {
-      fullscreen = false,
-      resizable = false,
-    }
+    windowSettings.virtual.width, windowSettings.virtual.height,
+    windowSettings.real.width, windowSettings.real.height,
+    windowSettings.flags
   )
 
   G.setDefaultFilter("nearest", "nearest")
