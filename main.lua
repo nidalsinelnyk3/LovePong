@@ -42,6 +42,7 @@ end
 
 function love.draw()
   G.clear(0.1, 0.1, 0.1, 1)
+  G.setColor(1, 1, 1, 1)
 
   push:start()
 
@@ -65,6 +66,8 @@ function love.draw()
   ball:draw()
 
   push:finish()
+
+  displayFps()
 end
 
 function love.keypressed(key, _scanCode, _isRepeat)
@@ -80,4 +83,12 @@ function love.keypressed(key, _scanCode, _isRepeat)
       gameState = "start"
     end
   end
+end
+
+function displayFps()
+  G.setFont(defaultFont)
+  G.setColor(0, 1, 0, 1)
+  G.printf("FPS: " .. love.timer.getFPS(),
+           0, G.getHeight() - defaultFont:getHeight()*2,
+           G.getWidth(), "center")
 end
