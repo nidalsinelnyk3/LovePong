@@ -30,7 +30,7 @@ function Player:draw()
 end
 
 function Player:reset()
-  self.score = 9
+  self.score = 0
   self.isWinner = false
 end
 
