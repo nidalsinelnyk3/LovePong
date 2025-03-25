@@ -64,7 +64,16 @@ function love.draw()
 end
 
 function love.keypressed(key, _scanCode, _isRepeat)
-  if key == "enter" or key == "return" then
-    gameState = "playing"
+  if gameState == "start" then
+    if key == "enter" or key == "return" then
+      gameState = "playing"
+    end
+  elseif gameState == "playing" then
+    if key == "r" then
+      ball:reset()
+    elseif key == "escape" then
+      ball:reset()
+      gameState = "start"
+    end
   end
 end
