@@ -2,6 +2,7 @@ require("lib/class")
 
 local G = love.graphics
 
+local Ball = require("src/Ball")
 local Paddle = require("src/Paddle")
 local Player = require("src/Player")
 
@@ -26,11 +27,15 @@ function love.load()
 
   paddle1 = Paddle:new({0, 0}, player1)
   paddle2 = Paddle:new({windowSettings.virtual.width - Paddle.width, windowSettings.virtual.height - Paddle.height}, player2)
+
+  ball = Ball:new()
 end
 
 function love.update(dt)
   paddle1:update(dt)
   paddle2:update(dt)
+
+  ball:update(dt)
 end
 
 function love.draw()
@@ -52,6 +57,8 @@ function love.draw()
 
   paddle1:draw()
   paddle2:draw()
+
+  ball:draw()
 
   push:finish()
 end
