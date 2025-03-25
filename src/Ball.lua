@@ -1,4 +1,5 @@
 local G = love.graphics
+local random = require("lib/random")
 local settings = require("src/settings")
 local virtualWindow = settings.window.virtual
 
@@ -10,13 +11,18 @@ function Ball:init()
 end
 
 function Ball:update(dt)
-  if gameState == "playing" then
-    self:move(dt)
-  end
+  if gameState == "playing" then self:move(dt) end
 end
 
 function Ball:draw()
   G.rectangle("fill", self.x, self.y, self.width, self.height)
+end
+
+function Ball:reset()
+  self.x = virtualWindow.width/2 - self.width/2
+  self.y = virtualWindow.height/2 - self.height/2
+  self.dx = random.number(2) == 1 and 200 or -200
+  self.dy = random.number(-120, 120)
 end
 
 function Ball:move(dt)
@@ -24,27 +30,19 @@ function Ball:move(dt)
   self.y = self.y + self.dy * dt
 end
 
-function Ball:bounceHorizontally(dt)
+function Ball:bounceFromPaddle(paddle)
+  self.shooter = paddle.player
   self.dx = -self.dx * 1.03
+  self.dy = random.number(120) * (self.dy > 0 and 1 or -1)
 end
 
-function Ball:bounceVertically(dt)
+function Ball:bounceFromWall()
   self.dy = -self.dy
 end
 
-function Ball:reset()
-  local randomizedInitialSpeed = function()
-    math.randomseed(os.time())
-
-    local dx = math.random(2) == 1 and 200 or -200
-    local dy = math.random(-50, 50)
-
-    return dx, dy
-  end
-
-  self.x = virtualWindow.width/2 - self.width/2
-  self.y = virtualWindow.height/2 - self.height/2
-  self.dx, self.dy = randomizedInitialSpeed()
+function Ball:isOffScreen()
+  return self.x >= virtualWindow.width or self.x + self.width <= 0 or
+    self.y >= virtualWindow.height or self.y + self.height <= 0
 end
 
 return Ball

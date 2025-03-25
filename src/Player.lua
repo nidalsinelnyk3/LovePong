@@ -25,6 +25,10 @@ function Player:createPaddle(pos)
   return self.paddle
 end
 
+function Player:increaseScore()
+  self.score = self.score + 1
+end
+
 function Player:renderScore()
   local halfWindowWidth = settings.window.virtual.width/2
   local x = self.id == 1 and 0 or halfWindowWidth

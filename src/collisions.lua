@@ -17,24 +17,27 @@ function collisions.betweenBallAndPaddles(ball, paddles)
         collidedInX = ball.x + ball.width >= p.x
       end
 
-      if collidedInX and collidedInY then
-        ball:bounceHorizontally()
-      end
+      if collidedInX and collidedInY then ball:bounceFromPaddle(p) end
     end
   )
 end
 
 function collisions.betweenBallAndWalls(ball)
-  local collidedInY
+  local collidedInX, collidedInY
 
+  -- Handle collision with top and bottom sides of the screen
   if ball.dy < 0 then
     collidedInY = ball.y <= 0
   elseif ball.dy > 0 then
     collidedInY = ball.y + ball.height >= settings.window.virtual.height
   end
 
-  if collidedInY then
-    ball:bounceVertically()
+  if collidedInY then ball:bounceFromWall() end
+
+  -- Handle ball moving beyond the window's edges
+  if ball:isOffScreen() then
+    if ball.shooter then ball.shooter:increaseScore() end
+    ball:reset()
   end
 end
 
