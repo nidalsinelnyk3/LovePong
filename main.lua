@@ -18,6 +18,8 @@ function love.load()
     windowSettings.flags
   )
 
+  love.window.setTitle("Pong")
+
   G.setDefaultFilter("nearest", "nearest")
 
   gameState = "start"
@@ -39,6 +41,8 @@ function love.update(dt)
 end
 
 function love.draw()
+  G.clear(0.1, 0.1, 0.1, 1)
+
   push:start()
 
   G.setFont(defaultFont)
