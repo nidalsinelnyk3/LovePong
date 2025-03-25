@@ -37,7 +37,11 @@ function collisions.betweenBallAndWalls(ball)
 
   -- Handle ball moving beyond the window's edges
   if ball:isOffScreen() then
-    if ball.shooter then ball.shooter:increaseScore() end
+    if ball.shooter then
+      ball.shooter:increaseScore()
+      ball.shooter = nil
+    end
+
     ball:reset()
   end
 end
