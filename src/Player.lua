@@ -1,9 +1,11 @@
-local G = love.graphics
+local Paddle = require("src/Paddle")
 local settings = require("src/settings")
 local tbl = require("lib/tbl")
+
 local virtualWindow = settings.window.virtual
 
-local Paddle = require("src/Paddle")
+local G = love.graphics
+
 local Player = class()
 
 Player:set{
@@ -14,7 +16,7 @@ Player:set{
 
 function Player:init()
   self.id = table.remove(Player.availableSlots, 1)
-  self.score = 0
+  self:reset()
 end
 
 function Player:draw()
@@ -22,7 +24,14 @@ function Player:draw()
     self:renderScore()
   end
 
-  if self.isWinner then self:renderVictoryMsg() end
+  if self.isWinner and gameState == "over" then
+    self:renderVictoryMsg()
+  end
+end
+
+function Player:reset()
+  self.score = 9
+  self.isWinner = false
 end
 
 function Player:createPaddle(pos)

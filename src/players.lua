@@ -33,3 +33,7 @@ function players:draw()
     end
   )
 end
+
+function players:reset()
+  tbl.each(players, function(p) p:reset() end)
+end

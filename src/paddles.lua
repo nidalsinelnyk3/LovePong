@@ -1,4 +1,5 @@
 local settings = require("src/settings")
+
 local virtualWindow = settings.window.virtual
 
 local Paddle = require("src/Paddle")

@@ -1,7 +1,5 @@
 local G = love.graphics
 local K = love.keyboard
-local settings = require("src/settings")
-local vWindowHeight = settings.window.virtual.height
 
 local Paddle = class()
 
@@ -32,6 +30,9 @@ function Paddle:draw()
 end
 
 function Paddle:move(dt)
+  local settings = require("src/settings")
+  local vWindowHeight = settings.window.virtual.height
+
   if K.isDown(self.keys.moveUp) then
     self.y = math.max(0, self.y + -Paddle.dy * dt)
   elseif K.isDown(self.keys.moveDown) then

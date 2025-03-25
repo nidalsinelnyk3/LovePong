@@ -1,6 +1,7 @@
-local G = love.graphics
 local random = require("lib/random")
 local settings = require("src/settings")
+
+local G = love.graphics
 local virtualWindow = settings.window.virtual
 
 local Ball = class()
