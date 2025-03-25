@@ -26,7 +26,9 @@ function Paddle:update(dt)
 end
 
 function Paddle:draw()
+  if self.player.isWinner then G.setColor(0, 1, 0, 1) end
   G.rectangle("fill", self.x, self.y, Paddle.width, Paddle.height)
+  G.setColor(1, 1, 1, 1)
 end
 
 function Paddle:move(dt)

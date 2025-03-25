@@ -6,7 +6,6 @@ local G = love.graphics
 local Ball = require("src/Ball")
 
 local collisions = require("src/collisions")
-local defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
 local push = require("lib/push")
 local settings = require("src/settings")
 local virtualWindow = settings.window.virtual
@@ -14,10 +13,12 @@ local virtualWindow = settings.window.virtual
 function love.load()
   local push = push
 
-  -- Create scaled down virtual window and change default aliasing to make the game feel low-res
+  -- Create scaled down virtual window
+  -- and change default aliasing to make the game feel low-res.
   push:setupScreen(virtualWindow.width, virtualWindow.height, G.getWidth(), G.getHeight())
   G.setDefaultFilter("nearest", "nearest")
 
+  defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
   gameState = "start"
 
   players:create()
@@ -43,21 +44,21 @@ function love.draw()
 
   G.setFont(defaultFont)
 
+  players:draw()
+
   if gameState == "start" then
-    G.printf("Press Enter/Return to start", 0, 30, virtualWindow.width, "center")
+    G.printf("First player to score 10 points wins", 0, 30, virtualWindow.width, "center")
+    G.printf("Press Enter/Return to start", 0, virtualWindow.height - 60, virtualWindow.width, "center")
+
+    ball:draw()
+  elseif gameState == "playing" then
+    ball:draw()
+    displayFPS()
+  elseif gameState == "over" then
+    G.printf("Press Enter/Return to restart", 0, virtualWindow.height - 60, virtualWindow.width, "center")
   end
 
-  player1:draw()
-  player2:draw()
-
-  paddle1:draw()
-  paddle2:draw()
-
-  ball:draw()
-
   push:finish()
-
-  displayFPS()
 end
 
 function love.keypressed(key, _scanCode, _isRepeat)
