@@ -32,7 +32,7 @@ end
 
 function Ball:bounceFromPaddle(paddle)
   self.shooter = paddle.player
-  self.dx = -self.dx * 1.03
+  self.dx = -self.dx * 1.1
   self.dy = random.number(120) * (self.dy > 0 and 1 or -1)
 end
 
