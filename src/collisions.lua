@@ -1,10 +1,9 @@
 local tbl = require("lib/tbl")
 local settings = require("src/settings")
-local G = love.graphics
 
 local collisions = {}
 
-function collisions.betweenBallAndPaddles(ball, paddles)
+function collisions.betweenBallAndPaddles(ball)
   tbl.each(
     paddles,
     function(p)

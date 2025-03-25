@@ -1,10 +1,9 @@
 require("lib/class")
+require("src/players")
 
 local G = love.graphics
 
 local Ball = require("src/Ball")
-local Paddle = require("src/Paddle")
-local Player = require("src/Player")
 
 local collisions = require("src/collisions")
 local defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
@@ -21,25 +20,16 @@ function love.load()
 
   gameState = "start"
 
-  player1 = Player:new()
-  player2 = Player:new()
-
-  paddle1 = player1:createPaddle({0, virtualWindow.height/2 - Paddle.height/2})
-  paddle2 = player2:createPaddle(
-    {virtualWindow.width - Paddle.width,
-     virtualWindow.height/2 - Paddle.height/2}
-  )
+  players:create()
 
   ball = Ball:new()
 end
 
 function love.update(dt)
-  paddle1:update(dt)
-  paddle2:update(dt)
-
+  players:update(dt)
   ball:update(dt)
 
-  collisions.betweenBallAndPaddles(ball, {paddle1, paddle2})
+  collisions.betweenBallAndPaddles(ball)
   collisions.betweenBallAndWalls(ball)
 end
 
