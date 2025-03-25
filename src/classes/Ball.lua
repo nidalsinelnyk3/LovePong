@@ -1,10 +1,17 @@
 local random = require("lib/random")
 local settings = require("src/settings")
 
+local A = love.audio
 local G = love.graphics
 local virtualWindow = settings.window.virtual
 
 local Ball = class()
+
+Ball:set{
+  sounds = {
+    bounce = A.newSource("assets/sounds/ballBounces.wav", "static"),
+  }
+}
 
 function Ball:init()
   self.width, self.height = 20, 20
@@ -39,10 +46,14 @@ function Ball:bounceFromPaddle(paddle)
   self.shooter = paddle.player
   self.dx = -self.dx * 1.1
   self.dy = random.number(120) * (self.dy > 0 and 1 or -1)
+
+  Ball.sounds.bounce:play()
 end
 
 function Ball:bounceFromWall()
   self.dy = -self.dy
+
+  Ball.sounds.bounce:play()
 end
 
 function Ball:isOffScreen()

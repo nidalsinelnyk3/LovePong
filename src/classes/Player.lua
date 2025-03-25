@@ -4,6 +4,7 @@ local tbl = require("lib/tbl")
 
 local virtualWindow = settings.window.virtual
 
+local A = love.audio
 local G = love.graphics
 
 local Player = class()
@@ -11,7 +12,11 @@ local Player = class()
 Player:set{
   availableSlots = {1, 2},
   defaultFont = G.newFont("assets/fonts/mono.ttf", 50),
-  scoreFont = G.newFont("assets/fonts/mono.ttf", 80)
+  scoreFont = G.newFont("assets/fonts/mono.ttf", 80),
+  sounds = {
+    score = A.newSource("assets/sounds/playerScores.wav", "static"),
+    win = A.newSource("assets/sounds/playerWins.wav", "static")
+  }
 }
 
 function Player:init()
@@ -40,8 +45,11 @@ end
 function Player:increaseScore()
   self.score = self.score + 1
 
-  if self.score == 10 then
+  if self.score < 10 then
+    Player.sounds.score:play()
+  else
     self.isWinner = true
+    Player.sounds.win:play()
     game:over()
   end
 end
