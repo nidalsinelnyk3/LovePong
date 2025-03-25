@@ -1,6 +1,7 @@
 local G = love.graphics
 local settings = require("src/settings")
 
+local Paddle = require("src/Paddle")
 local Player = class()
 
 Player:set{
@@ -17,6 +18,11 @@ function Player:draw()
   if gameState == "playing" then
     self:renderScore()
   end
+end
+
+function Player:createPaddle(pos)
+  self.paddle = Paddle:new(pos, self)
+  return self.paddle
 end
 
 function Player:renderScore()

@@ -13,6 +13,7 @@ Paddle:set{
 
 function Paddle:init(pos, player)
   self.x, self.y = unpack(pos)
+  self.player = player
 
   self.keys = {
     moveUp = player.id == 1 and "w" or "up",
