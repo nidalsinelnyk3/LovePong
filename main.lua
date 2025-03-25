@@ -74,7 +74,7 @@ function love.draw()
 
   push:finish()
 
-  displayFps()
+  displayFPS()
 end
 
 function love.keypressed(key, _scanCode, _isRepeat)
@@ -92,7 +92,7 @@ function love.keypressed(key, _scanCode, _isRepeat)
   end
 end
 
-function displayFps()
+function displayFPS()
   G.setFont(defaultFont)
   G.setColor(0, 1, 0, 1)
   G.printf("FPS: " .. love.timer.getFPS(),

@@ -24,8 +24,10 @@ end
 
 function tbl.filter(list, fn)
   t = {}
-  for i, v in ipairs(list) do if fn(v) then table.insert(t, v) end end
-    return t
+  for i, v in ipairs(list) do
+    if fn(v) then table.insert(t, v) end
+  end
+  return t
 end
 
 function tbl.keys(t)
