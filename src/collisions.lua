@@ -9,7 +9,8 @@ function collisions.betweenBallAndPaddles(ball, paddles)
     paddles,
     function(p)
       local collidedInX
-      local collidedInY = ball.y >= p.y and ball.y <= p.y + p.height
+      local collidedInY = ball.y >= p.y and ball.y <= p.y + p.height or
+        ball.y + ball.height >= p.y and ball.y + ball.height <= p.y + p.height
 
       if p.player.id == 1 then
         collidedInX = ball.x <= p.x + p.width
