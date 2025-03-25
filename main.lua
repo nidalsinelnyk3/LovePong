@@ -28,10 +28,10 @@ function love.load()
   player1 = Player:new()
   player2 = Player:new()
 
-  paddle1 = player1:createPaddle({0, 0})
+  paddle1 = player1:createPaddle({0, windowSettings.virtual.height/2 - Paddle.height/2})
   paddle2 = player2:createPaddle(
     {windowSettings.virtual.width - Paddle.width,
-     windowSettings.virtual.height - Paddle.height}
+     windowSettings.virtual.height/2 - Paddle.height/2}
   )
 
   ball = Ball:new()
