@@ -62,18 +62,11 @@ function love.draw()
 end
 
 function love.keypressed(key, _scanCode, _isRepeat)
-  if gameState == "start" then
-    if key == "enter" or key == "return" then
-      gameState = "playing"
-    end
-  elseif gameState == "playing" then
-    if key == "r" then
-      ball:reset()
-    elseif key == "escape" then
-      ball:reset()
-      gameState = "start"
-    end
-  end
+  local commands = require("src/commands")
+
+  local cmds = commands.game[gameState]
+  local fn = cmds and cmds[key]
+  if fn then fn() end
 end
 
 function displayFPS()
