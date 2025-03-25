@@ -4,8 +4,8 @@ local K = love.keyboard
 local Paddle = class()
 
 Paddle:set{
-  width = 10,
-  height = 50,
+  width = 15,
+  height = 80,
   dy = 200
 }
 
@@ -28,9 +28,9 @@ end
 
 function Paddle:move(dt)
   if K.isDown(self.keys.moveUp) then
-    self.y = self.y + -Paddle.dy * dt
+    self.y = math.max(0, self.y + -Paddle.dy * dt)
   elseif K.isDown(self.keys.moveDown) then
-    self.y = self.y + Paddle.dy * dt
+    self.y = math.min(GAME_HEIGHT - Paddle.height, self.y + Paddle.dy * dt)
   end
 end
 
