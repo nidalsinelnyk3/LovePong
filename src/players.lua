@@ -5,7 +5,7 @@ local tbl = require("lib/tbl")
 players = {}
 
 function players:create()
-  local Player = require("src/Player")
+  local Player = require("src/classes/Player")
 
   for i=1, 2, 1 do
     local player = Player:new()

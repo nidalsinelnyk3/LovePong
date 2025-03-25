@@ -1,9 +1,16 @@
 local tbl = require("lib/tbl")
 local settings = require("src/settings")
 
-local collisions = {}
+collisions = {}
 
-function collisions.betweenBallAndPaddles(ball)
+function collisions:update()
+  self.betweenBallAndPaddles()
+  self.betweenBallAndWalls()
+end
+
+function collisions.betweenBallAndPaddles()
+  local ball = ball
+
   tbl.each(
     paddles,
     function(p)
@@ -22,8 +29,9 @@ function collisions.betweenBallAndPaddles(ball)
   )
 end
 
-function collisions.betweenBallAndWalls(ball)
+function collisions.betweenBallAndWalls()
   local collidedInX, collidedInY
+  local ball = ball
 
   -- Handle collision with top and bottom sides of the screen
   if ball.dy < 0 then
@@ -44,5 +52,3 @@ function collisions.betweenBallAndWalls(ball)
     ball:reset()
   end
 end
-
-return collisions

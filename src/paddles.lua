@@ -2,7 +2,7 @@ local settings = require("src/settings")
 
 local virtualWindow = settings.window.virtual
 
-local Paddle = require("src/Paddle")
+local Paddle = require("src/classes/Paddle")
 
 paddles = {
   initialPositions = {

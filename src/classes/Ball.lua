@@ -12,11 +12,15 @@ function Ball:init()
 end
 
 function Ball:update(dt)
-  if gameState == "playing" then self:move(dt) end
+  if game:isPlaying() then
+    self:move(dt)
+  end
 end
 
 function Ball:draw()
-  G.rectangle("fill", self.x, self.y, self.width, self.height)
+  if game:isStart() or game:isPlaying() then
+    G.rectangle("fill", self.x, self.y, self.width, self.height)
+  end
 end
 
 function Ball:reset()

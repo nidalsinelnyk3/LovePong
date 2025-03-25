@@ -1,4 +1,4 @@
-local Paddle = require("src/Paddle")
+local Paddle = require("src/classes/Paddle")
 local settings = require("src/settings")
 local tbl = require("lib/tbl")
 
@@ -20,11 +20,9 @@ function Player:init()
 end
 
 function Player:draw()
-  if tbl.includes({"playing", "over"}, gameState) then
-    self:renderScore()
-  end
+  if not game:isStart() then self:renderScore() end
 
-  if self.isWinner and gameState == "over" then
+  if self.isWinner and game:isOver() then
     self:renderVictoryMsg()
   end
 end
@@ -43,8 +41,8 @@ function Player:increaseScore()
   self.score = self.score + 1
 
   if self.score == 10 then
-    gameState = "over"
     self.isWinner = true
+    game:over()
   end
 end
 
