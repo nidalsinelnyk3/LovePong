@@ -1,7 +1,11 @@
+require("lib/class")
+
 local G = love.graphics
 
 local WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
 local GAME_WIDTH, GAME_HEIGHT = WINDOW_WIDTH * 0.8, WINDOW_HEIGHT * 0.8
+
+local Player = require("src/Player")
 
 local defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
 local push = require("lib/push")
@@ -17,6 +21,9 @@ function love.load()
   )
 
   G.setDefaultFilter("nearest", "nearest")
+
+  player1 = Player:new(1)
+  player2 = Player:new(2)
 end
 
 function love.update()
