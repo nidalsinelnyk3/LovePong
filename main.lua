@@ -6,6 +6,7 @@ local Ball = require("src/Ball")
 local Paddle = require("src/Paddle")
 local Player = require("src/Player")
 
+local collisions = require("src/collisions")
 local defaultFont = G.newFont("assets/fonts/mono.ttf", 30)
 local push = require("lib/push")
 local settings = require("src/settings")
@@ -41,6 +42,9 @@ function love.update(dt)
   paddle2:update(dt)
 
   ball:update(dt)
+
+  collisions.betweenBallAndPaddles(ball, {paddle1, paddle2})
+  collisions.betweenBallAndWalls(ball)
 end
 
 function love.draw()

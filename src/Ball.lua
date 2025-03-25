@@ -24,6 +24,14 @@ function Ball:move(dt)
   self.y = self.y + self.dy * dt
 end
 
+function Ball:bounceHorizontally(dt)
+  self.dx = -self.dx * 1.03
+end
+
+function Ball:bounceVertically(dt)
+  self.dy = -self.dy
+end
+
 function Ball:reset()
   local randomizedInitialSpeed = function()
     math.randomseed(os.time())
